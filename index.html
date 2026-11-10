@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>InfoStore - Sistema de Gestão</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Folha de Estilos Externa -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ========================================== -->
+  <!-- TELA DE LOGIN                              -->
+  <!-- ========================================== -->
+  <div id="login-screen" class="view-screen active">
+    <div class="login-container">
+      <div class="login-card">
+        
+        <!-- Topo Escuro com Logo e Ícone -->
+        <header class="login-header">
+          <div class="header-icon-circle">
+            <svg class="icon-monitor" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+              <line x1="8" y1="21" x2="16" y2="21"></line>
+              <line x1="12" y1="17" x2="12" y2="21"></line>
+            </svg>
+          </div>
+          <h1 class="brand-title">InfoStore</h1>
+          <p class="brand-subtitle">Sistema de Gestão</p>
+        </header>
+
+        <!-- Corpo Branco com Formulário -->
+        <main class="login-body">
+          <form id="login-form" novalidate>
+            
+            <!-- Campo Usuário -->
+            <div class="form-group">
+              <label for="username-input" class="form-label">Usuário</label>
+              <div class="input-wrapper">
+                <input 
+                  type="text" 
+                  id="username-input" 
+                  class="form-input" 
+                  value="wendel" 
+                  placeholder="Seu usuário" 
+                  required
+                  autocomplete="username"
+                >
+              </div>
+            </div>
+
+            <!-- Campo Senha -->
+            <div class="form-group">
+              <label for="password-input" class="form-label">Senha</label>
+              <div class="input-wrapper password-wrapper">
+                <input 
+                  type="password" 
+                  id="password-input" 
+                  class="form-input" 
+                  placeholder="Digite sua senha" 
+                  required
+                  autocomplete="current-password"
+                >
+                <button type="button" id="toggle-password-btn" class="toggle-password-btn" aria-label="Mostrar ou ocultar senha">
+                  <svg id="eye-icon" class="icon-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                  </svg>
+                  <svg id="eye-off-icon" class="icon-eye hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                    <line x1="1" y1="1" x2="23" y2="23"></line>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Botão Entrar -->
+            <button type="submit" class="btn-primary" id="btn-login">
+              <span>Entrar</span>
+            </button>
+
+            <!-- Link Esqueceu a Senha -->
+            <div class="forgot-password-box">
+              <button type="button" id="forgot-password-link" class="link-forgot-password">
+                Esqueceu sua senha?
+              </button>
+            </div>
+          </form>
+        </main>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ========================================== -->
+  <!-- APLICAÇÃO PRINCIPAL (DASHBOARD & TELAS)   -->
+  <!-- ========================================== -->
+  <div id="app-screen" class="view-screen">
+    
+    <!-- Backdrop do Menu Lateral para Mobile -->
+    <div id="sidebar-backdrop" class="sidebar-backdrop"></div>
+
+    <div class="app-layout">
+      
+      <!-- MENU LATERAL / SIDEBAR -->
+      <aside id="app-sidebar" class="app-sidebar">
+        <div class="sidebar-header">
+          <div class="sidebar-brand">
+            <svg class="icon-brand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+              <line x1="8" y1="21" x2="16" y2="21"></line>
+              <line x1="12" y1="17" x2="12" y2="21"></line>
+            </svg>
+            <span class="brand-name">InfoStore</span>
+          </div>
+          <button id="close-sidebar-btn" class="close-sidebar-btn" aria-label="Fechar menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+
+        <nav class="sidebar-nav">
+          <ul class="nav-list">
+            <li>
+              <button class="nav-item active" data-target="dashboard-view">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="18" y1="20" x2="18" y2="10"></line>
+                  <line x1="12" y1="20" x2="12" y2="4"></line>
+                  <line x1="6" y1="20" x2="6" y2="14"></line>
+                </svg>
+                <span>Dashboard</span>
+              </button>
+            </li>
+            <li>
+              <button class="nav-item" data-target="clientes-view">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="9" cy="7" r="4"></circle>
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+                <span>Clientes</span>
+              </button>
+            </li>
+            <li>
+              <button class="nav-item" data-target="produtos-view">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                  <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                  <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                </svg>
+                <span>Produtos</span>
+              </button>
+            </li>
+            <li>
+              <button class="nav-item" data-target="fornecedores-view">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="1" y="3" width="15" height="13"></rect>
+                  <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                  <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                  <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                </svg>
+                <span>Fornecedores</span>
+              </button>
+            </li>
+            <li>
+              <button class="nav-item" data-target="vendas-view">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                  <line x1="3" y1="6" x2="21" y2="6"></line>
+                  <path d="M16 10a4 4 0 0 1-8 0"></path>
+                </svg>
+                <span>Vendas</span>
+              </button>
+            </li>
+          </ul>
+        </nav>
+
+        <div class="sidebar-footer">
+          <button id="logout-btn" class="nav-item btn-logout">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+              <polyline points="16 17 21 12 16 7"></polyline>
+              <line x1="21" y1="12" x2="9" y2="12"></line>
+            </svg>
+            <span>Sair</span>
+          </button>
+        </div>
+      </aside>
+
+      <!-- CONTEÚDO PRINCIPAL -->
+      <div class="main-wrapper">
+        
+        <!-- BARRA SUPERIOR (HEADER) -->
+        <header class="app-topbar">
+          <div class="topbar-left">
+            <button id="menu-toggle-btn" class="menu-toggle-btn" aria-label="Abrir menu">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+              </svg>
+            </button>
+            <h2 id="current-page-title" class="current-page-title">Dashboard</h2>
+          </div>
+
+          <div class="topbar-right">
+            <button id="theme-toggle" class="theme-icon-btn" title="Alternar visualização rápida de Login/Sistema">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+                <polyline points="10 17 15 12 10 7"></polyline>
+                <line x1="15" y1="12" x2="3" y2="12"></line>
+              </svg>
+            </button>
+            <div class="user-avatar" title="Wendel (Administrador)">
+              <span>A</span>
+            </div>
+          </div>
+        </header>
+
+        <!-- ÁREA DOS CONTEÚDOS DAS PÁGINAS -->
+        <main class="page-content">
+
+          <!-- 1. SEÇÃO DASHBOARD -->
+          <section id="dashboard-view" class="content-section active">
+            
+            <!-- Cards de Métricas Principais (Grid de 4) -->
+            <div class="metrics-grid">
+              
+              <!-- Card Clientes -->
+              <div class="metric-card">
+                <div class="metric-icon-wrap icon-purple">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                  </svg>
+                </div>
+                <div class="metric-value">5</div>
+                <div class="metric-label">Clientes</div>
+              </div>
+
+              <!-- Card Produtos -->
+              <div class="metric-card">
+                <div class="metric-icon-wrap icon-teal">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                    <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                    <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                  </svg>
+                </div>
+                <div class="metric-value">5</div>
+                <div class="metric-label">Produtos</div>
+              </div>
+
+              <!-- Card Vendas -->
+              <div class="metric-card">
+                <div class="metric-icon-wrap icon-indigo">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                    <line x1="2" y1="10" x2="22" y2="10"></line>
+                  </svg>
+                </div>
+                <div class="metric-value">3</div>
+                <div class="metric-label">Vendas</div>
+              </div>
+
+              <!-- Card Receita -->
+              <div class="metric-card">
+                <div class="metric-icon-wrap icon-amber">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="1" x2="12" y2="23"></line>
+                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                  </svg>
+                </div>
+                <div class="metric-value">R$ 8.4k</div>
+                <div class="metric-label">Receita</div>
+              </div>
+
+            </div>
+
+            <!-- Gráfico: Vendas — últimos 12 meses -->
+            <div class="dashboard-card chart-card">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">Vendas — últimos 12 meses</h3>
+                  <p class="card-subtitle">Receita acumulada em R$</p>
+                </div>
+                <div class="chart-badges">
+                  <span class="badge-growth">+24.8% no ano</span>
+                </div>
+              </div>
+
+              <!-- Área SVG Interativa do Gráfico -->
+              <div class="chart-container" id="sales-chart-container">
+                <svg id="sales-chart" viewBox="0 0 600 180" preserveAspectRatio="none">
+                  <defs>
+                    <linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stop-color="#6366f1" stop-opacity="0.38"/>
+                      <stop offset="60%" stop-color="#818cf8" stop-opacity="0.12"/>
+                      <stop offset="100%" stop-color="#6366f1" stop-opacity="0.0"/>
+                    </linearGradient>
+                  </defs>
+
+                  <!-- Área preenchida -->
+                  <polygon 
+                    id="chart-area" 
+                    fill="url(#chartGradient)" 
+                    points="20,150 70,128 120,142 170,118 220,135 270,110 320,126 370,88 420,102 470,74 520,90 570,55 570,170 20,170"
+                  />
+
+                  <!-- Linha do gráfico -->
+                  <polyline 
+                    id="chart-line" 
+                    fill="none" 
+                    stroke="#5b57d6" 
+                    stroke-width="3" 
+                    stroke-linecap="round" 
+                    stroke-linejoin="round"
+                    points="20,150 70,128 120,142 170,118 220,135 270,110 320,126 370,88 420,102 470,74 520,90 570,55"
+                  />
+
+                  <!-- Pontos interativos -->
+                  <g id="chart-points" class="chart-points-group"></g>
+                </svg>
+
+                <!-- Tooltip dinâmico do gráfico -->
+                <div id="chart-tooltip" class="chart-tooltip"></div>
+              </div>
+
+              <!-- Meses no rodapé do gráfico -->
+              <div class="chart-months">
+                <span>Jan</span><span>Fev</span><span>Mar</span><span>Abr</span>
+                <span>Mai</span><span>Jun</span><span>Jul</span><span>Ago</span>
+                <span>Set</span><span>Out</span><span>Nov</span><span>Dez</span>
+              </div>
+            </div>
+
+            <!-- Card: Últimas vendas -->
+            <div class="dashboard-card recent-sales-card">
+              <div class="card-header">
+                <h3 class="card-title">Últimas vendas</h3>
+                <button class="btn-text-action" onclick="appNavigation.switchTab('vendas-view')">Ver todas</button>
+              </div>
+
+              <div class="sales-list">
+                
+                <div class="sale-item">
+                  <div class="sale-info">
+                    <span class="sale-customer">Ana Souza</span>
+                    <span class="sale-date">15/05/2024</span>
+                  </div>
+                  <div class="sale-meta">
+                    <span class="sale-amount">R$ 3299.90</span>
+                    <span class="status-badge badge-completed">Concluída</span>
+                  </div>
+                </div>
+
+                <div class="sale-item">
+                  <div class="sale-info">
+                    <span class="sale-customer">Bruno Lima</span>
+                    <span class="sale-date">16/05/2024</span>
+                  </div>
+                  <div class="sale-meta">
+                    <span class="sale-amount">R$ 3799.80</span>
+                    <span class="status-badge badge-completed">Concluída</span>
+                  </div>
+                </div>
+
+                <div class="sale-item">
+                  <div class="sale-info">
+                    <span class="sale-customer">Diego Nunes</span>
+                    <span class="sale-date">17/05/2024</span>
+                  </div>
+                  <div class="sale-meta">
+                    <span class="sale-amount">R$ 349.90</span>
+                    <span class="status-badge badge-pending">Pendente</span>
+                  </div>
+                </div>
+
+                <div class="sale-item">
+                  <div class="sale-info">
+                    <span class="sale-customer">Elena Prado</span>
+                    <span class="sale-date">18/05/2024</span>
+                  </div>
+                  <div class="sale-meta">
+                    <span class="sale-amount">R$ 1289.70</span>
+                    <span class="status-badge badge-completed">Concluída</span>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Card: Produtos com estoque baixo -->
+            <div class="dashboard-card low-stock-card">
+              <div class="card-header">
+                <h3 class="card-title">Produtos com estoque baixo</h3>
+                <span class="card-chip">5 alertas</span>
+              </div>
+
+              <div class="table-responsive">
+                <table class="custom-table">
+                  <thead>
+                    <tr>
+                      <th>PRODUTO</th>
+                      <th>CATEGORIA</th>
+                      <th>ESTOQUE</th>
+                      <th>STATUS</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="font-medium">Notebook Dell Inspiron</td>
+                      <td class="text-secondary">Notebooks</td>
+                      <td><span class="stock-pill stock-warning">12</span></td>
+                      <td><span class="status-badge badge-active">Ativo</span></td>
+                    </tr>
+                    <tr>
+                      <td class="font-medium">Monitor LG 27" 4K</td>
+                      <td class="text-secondary">Monitores</td>
+                      <td><span class="stock-pill stock-danger">8</span></td>
+                      <td><span class="status-badge badge-active">Ativo</span></td>
+                    </tr>
+                    <tr>
+                      <td class="font-medium">Teclado Mecânico Redragon</td>
+                      <td class="text-secondary">Periféricos</td>
+                      <td><span class="stock-pill stock-warning">25</span></td>
+                      <td><span class="status-badge badge-active">Ativo</span></td>
+                    </tr>
+                    <tr>
+                      <td class="font-medium">Mouse Logitech MX Master</td>
+                      <td class="text-secondary">Periféricos</td>
+                      <td><span class="stock-pill stock-critical">0</span></td>
+                      <td><span class="status-badge badge-inactive">Inativo</span></td>
+                    </tr>
+                    <tr>
+                      <td class="font-medium">SSD Kingston 1TB</td>
+                      <td class="text-secondary">Armazenamento</td>
+                      <td><span class="stock-pill stock-safe">30</span></td>
+                      <td><span class="status-badge badge-active">Ativo</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+          </section>
+
+          <!-- 2. SEÇÃO CLIENTES -->
+          <section id="clientes-view" class="content-section">
+            <div class="section-top-actions">
+              <div class="search-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="text" id="filter-clientes" placeholder="Buscar cliente por nome ou email...">
+              </div>
+              <button class="btn-primary-action" onclick="appModal.open('cliente')">
+                <span>+ Novo Cliente</span>
+              </button>
+            </div>
+
+            <div class="dashboard-card">
+              <div class="table-responsive">
+                <table class="custom-table" id="clientes-table">
+                  <thead>
+                    <tr>
+                      <th>NOME</th>
+                      <th>EMAIL</th>
+                      <th>TELEFONE</th>
+                      <th>CIDADE</th>
+                      <th>STATUS</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="font-medium">Ana Souza</td>
+                      <td class="text-secondary">ana.souza@email.com</td>
+                      <td>(11) 98765-4321</td>
+                      <td>São Paulo - SP</td>
+                      <td><span class="status-badge badge-active">Ativo</span></td>
+                    </tr>
+                    <tr>
+                      <td class="font-medium">Bruno Lima</td>
+                      <td class="text-secondary">bruno.lima@email.com</td>
+                      <td>(21) 99123-4567</td>
+                      <td>Rio de Janeiro - RJ</td>
+                      <td><span class="status-badge badge-active">Ativo</span></td>
+                    </tr>
+                    <tr>
+                      <td class="font-medium">Diego Nunes</td>
+                      <td class="text-secondary">diego.nunes@email.com</td>
+                      <td>(31) 98234-5678</td>
+                      <td>Belo Horizonte - MG</td>
+                      <td><span class="status-badge badge-active">Ativo</span></td>
+                    </tr>
+                    <tr>
+                      <td class="font-medium">Elena Prado</td>
+                      <td class="text-secondary">elena.prado@email.com</td>
+                      <td>(41) 97345-6789</td>
+                      <td>Curitiba - PR</td>
+                      <td><span class="status-badge badge-active">Ativo</span></td>
+                    </tr>
+                    <tr>
+                      <td class="font-medium">Carlos Eduardo</td>
+                      <td class="text-secondary">carlos.edu@email.com</td>
+                      <td>(19) 98456-7890</td>
+                      <td>Campinas - SP</td>
+                      <td><span class="status-badge badge-inactive">Inativo</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+
+          <!-- 3. SEÇÃO PRODUTOS -->
+          <section id="produtos-view" class="content-section">
+            <div class="section-top-actions">
+              <div class="search-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="text" id="filter-produtos" placeholder="Buscar produto ou categoria...">
+              </div>
+              <button class="btn-primary-action" onclick="appModal.open('produto')">
+                <span>+ Novo Produto</span>
+              </button>
+            </div>
+
+            <div class="dashboard-card">
+              <div class="table-responsive">
+                <table class="custom-table" id="produtos-table">
+                  <thead>
+                    <tr>
+                      <th>PRODUTO</th>
+                      <th>CATEGORIA</th>
+                      <th>PREÇO</th>
+                      <th>ESTOQUE</th>
+                      <th>STATUS</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="font-medium">Notebook Dell Inspiron</td>
+                      <td class="text-secondary">Notebooks</td>
+                      <td class="font-medium">R$ 3.899,00</td>
+                      <td><span class="stock-pill stock-warning">12 un</span></td>
+                      <td><span class="status-badge badge-active">Ativo</span></td>
+                    </tr>
+                    <tr>
+                      <td class="font-medium">Monitor LG 27" 4K</td>
+                      <td class="text-secondary">Monitores</td>
+                      <td class="font-medium">R$ 1.949,00</td>
+                      <td><span class="stock-pill stock-danger">8 un</span></td>
+                      <td><span class="status-badge badge-active">Ativo</span></td>
+                    </tr>
+                    <tr>
+                      <td class="font-medium">Teclado Mecânico Redragon</td>
+                      <td class="text-secondary">Periféricos</td>
+                      <td class="font-medium">R$ 289,90</td>
+                      <td><span class="stock-pill stock-warning">25 un</span></td>
+                      <td><span class="status-badge badge-active">Ativo</span></td>
+                    </tr>
+                    <tr>
+                      <td class="font-medium">Mouse Logitech MX Master</td>
+                      <td class="text-secondary">Periféricos</td>
+                      <td class="font-medium">R$ 499,00</td>
+                      <td><span class="stock-pill stock-critical">0 un</span></td>
+                      <td><span class="status-badge badge-inactive">Inativo</span></td>
+                    </tr>
+                    <tr>
+                      <td class="font-medium">SSD Kingston 1TB NVMe</td>
+                      <td class="text-secondary">Armazenamento</td>
+                      <td class="font-medium">R$ 389,00</td>
+                      <td><span class="stock-pill stock-safe">30 un</span></td>
+                      <td><span class="status-badge badge-active">Ativo</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+
+          <!-- 4. SEÇÃO FORNECEDORES -->
+          <section id="fornecedores-view" class="content-section">
+            <div class="section-top-actions">
+              <div class="search-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="text" id="filter-fornecedores" placeholder="Buscar fornecedor...">
+              </div>
+              <button class="btn-primary-action" onclick="appModal.open('fornecedor')">
+                <span>+ Novo Fornecedor</span>
+              </button>
+            </div>
+
+            <div class="dashboard-card">
+              <div class="table-responsive">
+                <table class="custom-table" id="fornecedores-table">
+                  <thead>
+                    <tr>
+                      <th>EMPRESA</th>
+                      <th>SEGMENTO</th>
+                      <th>CONTATO</th>
+                      <th>CNPJ</th>
+                      <th>STATUS</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="font-medium">Dell Computadores do Brasil</td>
+                      <td class="text-secondary">Notebooks e PCs</td>
+                      <td>suporte@dell.com.br</td>
+                      <td>72.381.189/0001-10</td>
+                      <td><span class="status-badge badge-active">Ativo</span></td>
+                    </tr>
+                    <tr>
+                      <td class="font-medium">LG Electronics Brasil</td>
+                      <td class="text-secondary">Monitores e Displays</td>
+                      <td>comercial@lge.com.br</td>
+                      <td>01.166.372/0008-21</td>
+                      <td><span class="status-badge badge-active">Ativo</span></td>
+                    </tr>
+                    <tr>
+                      <td class="font-medium">Redragon Gaming Brasil</td>
+                      <td class="text-secondary">Periféricos Gamer</td>
+                      <td>vendas@redragon.com.br</td>
+                      <td>33.456.789/0001-44</td>
+                      <td><span class="status-badge badge-active">Ativo</span></td>
+                    </tr>
+                    <tr>
+                      <td class="font-medium">Kingston Technology</td>
+                      <td class="text-secondary">Memórias & SSDs</td>
+                      <td>contato@kingston.com</td>
+                      <td>12.789.456/0002-99</td>
+                      <td><span class="status-badge badge-active">Ativo</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+
+          <!-- 5. SEÇÃO VENDAS -->
+          <section id="vendas-view" class="content-section">
+            <div class="section-top-actions">
+              <div class="search-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="text" id="filter-vendas" placeholder="Buscar venda por cliente ou ID...">
+              </div>
+              <button class="btn-primary-action" onclick="appModal.open('venda')">
+                <span>+ Registrar Venda</span>
+              </button>
+            </div>
+
+            <div class="dashboard-card">
+              <div class="table-responsive">
+                <table class="custom-table" id="vendas-table">
+                  <thead>
+                    <tr>
+                      <th>PEDIDO</th>
+                      <th>CLIENTE</th>
+                      <th>DATA</th>
+                      <th>VALOR</th>
+                      <th>STATUS</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="font-medium">#VD-1049</td>
+                      <td>Ana Souza</td>
+                      <td class="text-secondary">15/05/2024</td>
+                      <td class="font-medium">R$ 3.299,90</td>
+                      <td><span class="status-badge badge-completed">Concluída</span></td>
+                    </tr>
+                    <tr>
+                      <td class="font-medium">#VD-1050</td>
+                      <td>Bruno Lima</td>
+                      <td class="text-secondary">16/05/2024</td>
+                      <td class="font-medium">R$ 3.799,80</td>
+                      <td><span class="status-badge badge-completed">Concluída</span></td>
+                    </tr>
+                    <tr>
+                      <td class="font-medium">#VD-1051</td>
+                      <td>Diego Nunes</td>
+                      <td class="text-secondary">17/05/2024</td>
+                      <td class="font-medium">R$ 349,90</td>
+                      <td><span class="status-badge badge-pending">Pendente</span></td>
+                    </tr>
+                    <tr>
+                      <td class="font-medium">#VD-1052</td>
+                      <td>Elena Prado</td>
+                      <td class="text-secondary">18/05/2024</td>
+                      <td class="font-medium">R$ 1.289,70</td>
+                      <td><span class="status-badge badge-completed">Concluída</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+
+        </main>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ========================================== -->
+  <!-- MODAL GENÉRICO / NOTIFICAÇÃO               -->
+  <!-- ========================================== -->
+  <div id="app-modal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h4 id="modal-title">Novo Registro</h4>
+        <button id="modal-close-btn" class="modal-close" aria-label="Fechar">✕</button>
+      </div>
+      <div class="modal-body" id="modal-body">
+        <p>Preencha os campos para cadastrar um novo item no sistema:</p>
+        <div class="form-group" style="margin-top: 14px;">
+          <label class="form-label">Identificação / Nome</label>
+          <input type="text" class="form-input" id="modal-input-name" placeholder="Digite o nome...">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Detalhes / Descrição</label>
+          <input type="text" class="form-input" id="modal-input-detail" placeholder="Informação adicional...">
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn-secondary" onclick="appModal.close()">Cancelar</button>
+        <button type="button" class="btn-primary" onclick="appModal.save()">Salvar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast de Notificações -->
+  <div id="toast" class="toast">
+    <span id="toast-message">Notificação</span>
+  </div>
+
+  <!-- Script JavaScript Externo -->
+  <script src="script.js"></script>
+</body>
+</html>

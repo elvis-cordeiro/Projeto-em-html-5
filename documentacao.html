@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>InfoStore - Manual Completo, Semântica HTML5 e Guia de Edição</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+    @page {
+      size: A4;
+      margin: 16mm 14mm 16mm 14mm;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: #1e293b;
+      background-color: #ffffff;
+      line-height: 1.55;
+      font-size: 13px;
+    }
+
+    .page-break {
+      page-break-before: always;
+      break-before: page;
+    }
+
+    .avoid-break {
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+
+    /* --- CAPA --- */
+    .cover {
+      min-height: 92vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 42px 36px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #09090b 0%, #18181b 45%, #27272a 100%);
+      color: #ffffff;
+      border: 1px solid #3f3f46;
+      position: relative;
+    }
+
+    .cover-tag {
+      display: inline-block;
+      align-self: flex-start;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #e4e4e7;
+    }
+
+    .cover-center {
+      margin: 40px 0;
+    }
+
+    .cover-icon-box {
+      width: 70px;
+      height: 70px;
+      background: #27272a;
+      border: 2px solid #52525b;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    }
+
+    .cover-icon-box svg {
+      width: 36px;
+      height: 36px;
+      color: #ffffff;
+    }
+
+    .cover-title {
+      font-size: 40px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      line-height: 1.15;
+      margin-bottom: 8px;
+    }
+
+    .cover-subtitle {
+      font-size: 22px;
+      font-weight: 600;
+      color: #818cf8;
+      margin-bottom: 16px;
+    }
+
+    .cover-desc {
+      font-size: 14.5px;
+      font-weight: 400;
+      color: #a1a1aa;
+      max-width: 620px;
+      line-height: 1.6;
+    }
+
+    .cover-footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+      padding-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      font-size: 12px;
+      color: #a1a1aa;
+    }
+
+    .cover-footer strong {
+      color: #ffffff;
+      display: block;
+      font-size: 13px;
+      margin-bottom: 3px;
+    }
+
+    /* --- CABEÇALHO DAS PÁGINAS --- */
+    .doc-page {
+      padding: 10px 4px;
+    }
+
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #f1f5f9;
+      padding-bottom: 10px;
+      margin-bottom: 22px;
+    }
+
+    .page-header-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: #6366f1;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .page-header-num {
+      font-size: 12px;
+      color: #94a3b8;
+      font-weight: 600;
+    }
+
+    /* --- TIPOGRAFIA --- */
+    h2 {
+      font-size: 19px;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.3px;
+      margin: 22px 0 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    h2::before {
+      content: "";
+      display: inline-block;
+      width: 5px;
+      height: 20px;
+      background-color: #6366f1;
+      border-radius: 4px;
+    }
+
+    h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1e293b;
+      margin: 16px 0 8px;
+    }
+
+    h4 {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #334155;
+      margin: 12px 0 6px;
+    }
+
+    p {
+      margin-bottom: 10px;
+      color: #334155;
+      text-align: justify;
+    }
+
+    /* --- DESTAQUES / BOXES --- */
+    .callout {
+      background-color: #f8fafc;
+      border-left: 4px solid #6366f1;
+      border-radius: 0 10px 10px 0;
+      padding: 12px 16px;
+      margin: 14px 0;
+      font-size: 12.5px;
+      color: #334155;
+    }
+
+    .callout-editable {
+      background-color: #eff6ff;
+      border-left-color: #2563eb;
+      color: #1e40af;
+    }
+
+    .callout-success {
+      background-color: #f0fdf4;
+      border-left-color: #10b981;
+      color: #166534;
+    }
+
+    .callout-warning {
+      background-color: #fffbeb;
+      border-left-color: #f59e0b;
+      color: #92400e;
+    }
+
+    /* --- BADGES --- */
+    .badge {
+      display: inline-block;
+      padding: 2px 7px;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .badge-edit { background: #dbeafe; color: #1e40af; border: 1px solid #93c5fd; }
+    .badge-tag { background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; font-family: monospace; }
+    .badge-green { background: #dcfce7; color: #15803d; }
+    .badge-purple { background: #ede9fe; color: #6d28d9; }
+
+    /* --- TABELAS --- */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0 20px;
+      font-size: 12px;
+    }
+
+    th {
+      background-color: #f1f5f9;
+      color: #334155;
+      font-weight: 700;
+      text-align: left;
+      padding: 9px 12px;
+      border-bottom: 2px solid #cbd5e1;
+    }
+
+    td {
+      padding: 9px 12px;
+      border-bottom: 1px solid #e2e8f0;
+      color: #334155;
+      vertical-align: top;
+    }
+
+    tr:nth-child(even) td {
+      background-color: #f8fafc;
+    }
+
+    /* --- CÓDIGO E LINHAS EDITÁVEIS --- */
+    pre {
+      background-color: #09090b;
+      color: #f4f4f5;
+      padding: 12px 14px;
+      border-radius: 10px;
+      font-family: 'JetBrains Mono', Consolas, Monaco, monospace;
+      font-size: 11.2px;
+      line-height: 1.5;
+      margin: 10px 0 14px;
+      border: 1px solid #27272a;
+    }
+
+    code {
+      font-family: 'JetBrains Mono', Consolas, Monaco, monospace;
+      font-size: 11.8px;
+      background-color: #f1f5f9;
+      color: #0f172a;
+      padding: 1px 5px;
+      border-radius: 4px;
+    }
+
+    pre code {
+      background-color: transparent;
+      color: inherit;
+      padding: 0;
+    }
+
+    .code-comment { color: #71717a; font-style: italic; }
+    .code-tag { color: #f43f5e; font-weight: 600; }
+    .code-attr { color: #38bdf8; }
+    .code-val { color: #a3e635; }
+    .code-highlight {
+      background-color: rgba(234, 179, 8, 0.22);
+      border-left: 3px solid #eab308;
+      display: block;
+      padding: 2px 6px;
+      margin: 2px -6px;
+      color: #fef08a;
+      font-weight: 600;
+    }
+
+    .edit-card {
+      border: 1.5px solid #bfdbfe;
+      background-color: #f8fbff;
+      border-radius: 12px;
+      padding: 14px;
+      margin: 14px 0;
+    }
+
+    .edit-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .edit-card-title {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #1e3a8a;
+    }
+
+    ul, ol {
+      margin: 8px 0 14px 20px;
+      color: #334155;
+    }
+
+    li {
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ======================================================== -->
+  <!-- CAPA DO MANUAL                                           -->
+  <!-- ======================================================== -->
+  <div class="cover">
+    <div class="cover-tag">Documentação Técnica, Didática & Arquitetural</div>
+
+    <div class="cover-center">
+      <div class="cover-icon-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+          <line x1="8" y1="21" x2="16" y2="21"></line>
+          <line x1="12" y1="17" x2="12" y2="21"></line>
+        </svg>
+      </div>
+      <h1 class="cover-title">InfoStore</h1>
+      <div class="cover-subtitle">Sistema de Gestão Empresarial</div>
+      <p class="cover-desc">
+        Manual completo de engenharia de software para o projeto em <strong>HTML5</strong>, <strong>CSS3</strong> e <strong>JavaScript</strong>. Contém a explicação pedagógica sobre <em>classes</em>, <em>divs</em>, <em>semântica interpretada pelos navegadores</em>, <strong>destaque exato das linhas editáveis</strong>, como substituir imagens e o roteiro para continuidade imediata em novas sessões.
+      </p>
+    </div>
+
+    <div class="cover-footer">
+      <div>
+        <strong>Diretório do Código:</strong>
+        <code>C:\Users\elvis.acordeiro\Desktop\Telas em html 5</code>
+      </div>
+      <div style="text-align: right;">
+        <strong>Data de Publicação:</strong>
+        10 de Novembro de 2026 • Versão 1.0 Completa
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ======================================================== -->
+  <!-- PÁGINA 2: ESTRUTURA E ARQUITETURA DE ARQUIVOS            -->
+  <!-- ======================================================== -->
+  <div class="page-break"></div>
+  <div class="doc-page">
+    
+    <div class="page-header">
+      <div class="page-header-title">1. Estrutura do Projeto & Arquitetura Modular</div>
+      <div class="page-header-num">Página 2</div>
+    </div>
+
+    <h2>Visão Geral da Organização</h2>
+    <p>
+      Para atender à exigência de <strong>arquivos separados</strong>, o sistema foi concebido sem acoplamento monolítico. A aplicação está dividida em 3 pilares fundamentais, todos situados diretamente na pasta do projeto:
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Arquivo</th>
+          <th>Tecnologia</th>
+          <th>Tamanho</th>
+          <th>Papel Fundamental no Sistema</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>index.html</strong></td>
+          <td><span class="badge badge-tag">&lt;HTML5&gt;</span></td>
+          <td>~35 KB</td>
+          <td>
+            <strong>Esqueleto Estrutural & Semântica:</strong> Contém a marcação hierárquica das telas de Login, Dashboard, Clientes, Produtos, Fornecedores, Vendas e Modais.
+          </td>
+        </tr>
+        <tr>
+          <td><strong>style.css</strong></td>
+          <td><span class="badge badge-tag">CSS3</span></td>
+          <td>~20 KB</td>
+          <td>
+            <strong>Design System & Responsividade:</strong> Define variáveis globais (cores, sombras, raios de borda), flexbox, grid, regras para celular/desktop e animações.
+          </td>
+        </tr>
+        <tr>
+          <td><strong>script.js</strong></td>
+          <td><span class="badge badge-tag">Vanilla JS</span></td>
+          <td>~12 KB</td>
+          <td>
+            <strong>Comportamento & Interatividade:</strong> Lógica de autenticação com validação, alternância entre telas, menu drawer responsivo, busca em tempo real e gráfico SVG.
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Documentacao_InfoStore.pdf</strong></td>
+          <td><span class="badge badge-tag">PDF</span></td>
+          <td>Arquivo Atual</td>
+          <td>Dossiê para referência do desenvolvedor e transição rápida para novos prompts.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout callout-success">
+      <strong>Zero Dependências Externas:</strong> A aplicação funciona 100% offline. Não exige <code>npm install</code>, servidor Node.js ou downloads adicionais para ser renderizada com perfeição visual no Google Chrome, Microsoft Edge ou Firefox.
+    </div>
+
+    <h2>Como os Três Arquivos se Conectam</h2>
+    <p>
+      O arquivo principal é o <code>index.html</code>. Ele estabelece as conexões externas de forma explícita:
+    </p>
+    <ul>
+      <li><strong>Na tag <code>&lt;head&gt;</code>:</strong> Conecta a folha de estilos através de <code>&lt;link rel="stylesheet" href="style.css"&gt;</code>. Isso faz com que todo o visual e regras responsivas sejam aplicados aos elementos.</li>
+      <li><strong>No final do <code>&lt;body&gt;</code>:</strong> Invoca a lógica com <code>&lt;script src="script.js"&gt;&lt;/script&gt;</code>. Colocá-lo ao final garante que todos os nós HTML já tenham sido carregados antes do script tentar manipulá-los (garantindo velocidade e evitando erros de elemento nulo).</li>
+    </ul>
+
+    <h2>Fluxo Funcional das Telas</h2>
+    <ol>
+      <li><strong>Acesso Inicial:</strong> O usuário visualiza o card de Login <em>InfoStore</em> pré-preenchido com o usuário <code>wendel</code>.</li>
+      <li><strong>Autenticação Simulada:</strong> Ao digitar a senha e clicar no botão preto <strong>Entrar</strong>, um indicador de carregamento é acionado e a tela de Dashboard é exibida suavemente.</li>
+      <li><strong>Navegação Drawer / Sidebar:</strong> Em dispositivos móveis, o botão hamburger (☰) abre a barra lateral preta (#09090b) com backdrop translúcido. No desktop, a barra lateral é mantida fixada.</li>
+      <li><strong>Abas Disponíveis:</strong> O usuário navega entre <em>Dashboard</em>, <em>Clientes</em>, <em>Produtos</em>, <em>Fornecedores</em> e <em>Vendas</em> instantaneamente.</li>
+      <li><strong>Logout:</strong> O botão <em>Sair</em> no rodapé da barra lateral encerra a sessão e retorna à tela de login com uma notificação flutuante (toast).</li>
+    </ol>
+
+  </div>
+
+
+  <!-- ======================================================== -->
+  <!-- PÁGINA 3: CONCEITOS TEÓRICOS DE HTML5 (CLASS, DIV, SEMÂNTICA) -->
+  <!-- ======================================================== -->
+  <div class="page-break"></div>
+  <div class="doc-page">
+    
+    <div class="page-header">
+      <div class="page-header-title">2. Conceitos HTML5: Por que usar Class, Div e Semântica?</div>
+      <div class="page-header-num">Página 3</div>
+    </div>
+
+    <h2>1. Por que usar <code>class</code> e qual a diferença para <code>id</code>?</h2>
+    <p>
+      Tanto <code>class</code> quanto <code>id</code> são atributos globais do HTML usados para identificar elementos. No entanto, sua finalidade técnica e interpretação pelos navegadores são distintas:
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Atributo</th>
+          <th>Regra de Ocorrência</th>
+          <th>Finalidade Principal</th>
+          <th>Exemplo no Projeto InfoStore</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>class</code></td>
+          <td><strong>Múltipla & Reutilizável:</strong> O mesmo nome de classe pode e deve ser aplicado em dezenas de elementos diferentes.</td>
+          <td>
+            <strong>Estilização em Massa (CSS):</strong> Define um padrão visual compartilhado (ex: formato de botões, cards, sombras, campos de texto).
+          </td>
+          <td>
+            <code>class="form-input"</code> aplicado tanto no campo de usuário quanto de senha.<br>
+            <code>class="metric-card"</code> aplicado nos 4 cards de indicadores.
+          </td>
+        </tr>
+        <tr>
+          <td><code>id</code></td>
+          <td><strong>Único no Documento:</strong> Cada ID só pode existir uma única vez por página HTML.</td>
+          <td>
+            <strong>Alvo Específico (JavaScript / DOM):</strong> Permite que o JavaScript encontre com precisão cirúrgica aquele elemento exato via <code>document.getElementById()</code>.
+          </td>
+          <td>
+            <code>id="username-input"</code> para ler o texto digitado.<br>
+            <code>id="login-form"</code> para escutar o evento de envio (submit).<br>
+            <code>id="app-sidebar"</code> para abrir/fechar o menu drawer.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout">
+      <strong>Regra de Ouro dos Desenvolvedores:</strong> Use <strong>classes</strong> para tudo o que envolve estilo visual no CSS. Use <strong>IDs</strong> apenas quando precisar manipular um elemento exclusivo via JavaScript ou linkar uma âncora direta.
+    </div>
+
+    <h2>2. Por que e quando usamos a tag <code>&lt;div&gt;</code>?</h2>
+    <p>
+      A palavra <strong>div</strong> é uma abreviação de <em>division</em> (divisão). Tecnicamente, ela é um <strong>contêiner genérico de bloco</strong> que não possui significado semântico intrínseco.
+    </p>
+
+    <h3>Quando DEVE ser usada:</h3>
+    <ul>
+      <li><strong>Agrupador de Layout (Flexbox & Grid):</strong> Quando precisamos que dois ou mais elementos fiquem lado a lado ou organizados em colunas (ex: <code>&lt;div class="metrics-grid"&gt;</code> para agrupar os 4 cards).</li>
+      <li><strong>Wrapper de Posicionamento:</strong> No campo de senha, usamos <code>&lt;div class="input-wrapper password-wrapper"&gt;</code> com <code>position: relative</code> para posicionar o botão do olho (<code>position: absolute</code>) exatamente à direita do campo de texto.</li>
+      <li><strong>Camadas e Efeitos Visuais:</strong> Para o fundo escurecido do menu lateral (<code>&lt;div id="sidebar-backdrop"&gt;</code>) e toasts flutuantes.</li>
+    </ul>
+
+    <h3>Quando NÃO deve ser usada:</h3>
+    <p>
+      Evita-se o fenômeno conhecido como <em>"Div Soup"</em> (sopa de divs), que ocorre quando o desenvolvedor usa <code>&lt;div&gt;</code> para botões (em vez de <code>&lt;button&gt;</code>), para cabeçalhos (em vez de <code>&lt;header&gt;</code>) ou para menus (em vez de <code>&lt;nav&gt;</code>). Isso destrói a acessibilidade para deficientes visuais e prejudica a interpretação do navegador.
+    </p>
+
+    <h2>3. A Semântica do HTML5 e a Interpretação dos Navegadores</h2>
+    <p>
+      Elementos semânticos carregam <strong>significado sobre o papel daquele conteúdo</strong>. Os navegadores modernos e motores de busca (Google) constroem a <em>Accessibility Tree</em> (Árvore de Acessibilidade) com base nessas tags:
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Tag Semântica</th>
+          <th>O que ela representa</th>
+          <th>Como o Navegador interpreta</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>&lt;header&gt;</code></td>
+          <td>Cabeçalho de uma seção ou página.</td>
+          <td>Interpreta como o marco de topo ou introdução daquele bloco de informações.</td>
+        </tr>
+        <tr>
+          <td><code>&lt;nav&gt;</code></td>
+          <td>Área de links e navegação primária.</td>
+          <td>Leitores de tela permitem que usuários cegos pulem direto para o menu usando atalhos.</td>
+        </tr>
+        <tr>
+          <td><code>&lt;main&gt;</code></td>
+          <td>O conteúdo central e dominante do documento.</td>
+          <td>Sinaliza a área principal, excluindo cabeçalhos e barras laterais repetitivas.</td>
+        </tr>
+        <tr>
+          <td><code>&lt;aside&gt;</code></td>
+          <td>Conteúdo lateral ou tangencial.</td>
+          <td>Ideal para menus drawer e sidebars complementares ao fluxo principal.</td>
+        </tr>
+        <tr>
+          <td><code>&lt;section&gt;</code></td>
+          <td>Uma seção temática independente.</td>
+          <td>Agrupa blocos de dados como Dashboard, Clientes, Produtos e Vendas.</td>
+        </tr>
+        <tr>
+          <td><code>&lt;table&gt;</code></td>
+          <td>Dados tabulares bidimensionais.</td>
+          <td>Organiza dados com cabeçalhos <code>&lt;th&gt;</code> e linhas <code>&lt;tr&gt;</code> para leitura estruturada.</td>
+        </tr>
+        <tr>
+          <td><code>&lt;button&gt;</code></td>
+          <td>Elemento interativo que dispara uma ação.</td>
+          <td>Garante foco nativo pelo teclado (tecla <kbd>Tab</kbd>) e ativação pela tecla <kbd>Enter</kbd> ou <kbd>Espaço</kbd>.</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+
+  <!-- ======================================================== -->
+  <!-- PÁGINA 4: GUIA DE LINHAS EDITÁVEIS - PARTE 1 (LOGIN & METRICAS) -->
+  <!-- ======================================================== -->
+  <div class="page-break"></div>
+  <div class="doc-page">
+    
+    <div class="page-header">
+      <div class="page-header-title">3. Guia de Linhas Editáveis: Login & Dashboard</div>
+      <div class="page-header-num">Página 4</div>
+    </div>
+
+    <h2>Linhas Editáveis no Arquivo <code>index.html</code></h2>
+    <p>
+      Abaixo estão os trechos exatos do código com as partes que você pode alterar livremente para personalizar seu sistema (trocar nomes, textos, valores e substituir ícones por imagens reais):
+    </p>
+
+    <!-- BLOCO 1: LOGIN -->
+    <div class="edit-card avoid-break">
+      <div class="edit-card-header">
+        <span class="edit-card-title">1. Tela de Login (Logotipo, Nomes e Textos)</span>
+        <span class="badge badge-edit">Editável</span>
+      </div>
+      <p style="font-size: 12px; margin-bottom: 6px;">
+        Localize as linhas <strong>20 a 33</strong> de <code>index.html</code> para alterar o nome do sistema ou trocar o ícone do monitor por sua própria imagem:
+      </p>
+      <pre><code><span class="code-comment">&lt;!-- Cabeçalho da Tela de Login --&gt;</span>
+&lt;header class="login-header"&gt;
+  &lt;div class="header-icon-circle"&gt;
+<span class="code-highlight">    <span class="code-comment">&lt;!-- DICA: Para colocar sua logo em imagem (PNG/JPG), troque o &lt;svg&gt; por: --&gt;</span>
+    <span class="code-comment">&lt;!-- &lt;img src="minha-logo.png" alt="Logo" style="width: 36px; height: 36px;"&gt; --&gt;</span>
+    &lt;svg class="icon-monitor" viewBox="0 0 24 24" ...&gt;...&lt;/svg&gt;</span>
+  &lt;/div&gt;
+<span class="code-highlight">  &lt;h1 class="brand-title"&gt;InfoStore&lt;/h1&gt;           <span class="code-comment">&lt;!-- [EDITAR] Nome da Empresa --&gt;</span></span>
+<span class="code-highlight">  &lt;p class="brand-subtitle"&gt;Sistema de Gestão&lt;/p&gt;  <span class="code-comment">&lt;!-- [EDITAR] Subtítulo --&gt;</span></span>
+&lt;/header&gt;</code></pre>
+
+      <p style="font-size: 12px; margin-bottom: 6px;">
+        Para alterar o usuário padrão pré-carregado no formulário (linha <strong>47</strong>):
+      </p>
+      <pre><code><span class="code-highlight">&lt;input type="text" id="username-input" class="form-input" value="wendel"&gt; <span class="code-comment">&lt;!-- Troque "wendel" por seu usuário --&gt;</span></span></code></pre>
+    </div>
+
+    <!-- BLOCO 2: AVATAR DO USUÁRIO -->
+    <div class="edit-card avoid-break">
+      <div class="edit-card-header">
+        <span class="edit-card-title">2. Avatar do Usuário no Topo do Sistema</span>
+        <span class="badge badge-edit">Editável</span>
+      </div>
+      <p style="font-size: 12px; margin-bottom: 6px;">
+        Localize as linhas <strong>190 a 195</strong> de <code>index.html</code> para trocar a letra "A" por uma foto real do administrador:
+      </p>
+      <pre><code><span class="code-comment">&lt;!-- Para manter a letra inicial: --&gt;</span>
+&lt;div class="user-avatar" title="Wendel (Administrador)"&gt;
+<span class="code-highlight">  &lt;span&gt;A&lt;/span&gt; <span class="code-comment">&lt;!-- [EDITAR] Altere para a letra desejada --&gt;</span></span>
+&lt;/div&gt;
+
+<span class="code-comment">&lt;!-- OU para usar uma foto real do usuário: --&gt;</span>
+<span class="code-highlight">&lt;div class="user-avatar"&gt;
+  &lt;img src="avatar.jpg" alt="Foto" style="width:100%; height:100%; border-radius:50%; object-fit:cover;"&gt;
+&lt;/div&gt;</span></code></pre>
+    </div>
+
+    <!-- BLOCO 3: CARDS DE MÉTRICAS -->
+    <div class="edit-card avoid-break">
+      <div class="edit-card-header">
+        <span class="edit-card-title">3. Indicadores Numéricos do Dashboard</span>
+        <span class="badge badge-edit">Editável</span>
+      </div>
+      <p style="font-size: 12px; margin-bottom: 6px;">
+        Localize as linhas <strong>205 a 250</strong> de <code>index.html</code> para alterar números e legendas dos 4 cards de métricas:
+      </p>
+      <pre><code><span class="code-comment">&lt;!-- Card 1: Clientes --&gt;</span>
+<span class="code-highlight">&lt;div class="metric-value"&gt;5&lt;/div&gt;          <span class="code-comment">&lt;!-- [EDITAR] Quantidade de Clientes --&gt;</span></span>
+&lt;div class="metric-label"&gt;Clientes&lt;/div&gt;
+
+<span class="code-comment">&lt;!-- Card 2: Produtos --&gt;</span>
+<span class="code-highlight">&lt;div class="metric-value"&gt;5&lt;/div&gt;          <span class="code-comment">&lt;!-- [EDITAR] Quantidade de Produtos --&gt;</span></span>
+&lt;div class="metric-label"&gt;Produtos&lt;/div&gt;
+
+<span class="code-comment">&lt;!-- Card 3: Vendas --&gt;</span>
+<span class="code-highlight">&lt;div class="metric-value"&gt;3&lt;/div&gt;          <span class="code-comment">&lt;!-- [EDITAR] Total de Vendas --&gt;</span></span>
+&lt;div class="metric-label"&gt;Vendas&lt;/div&gt;
+
+<span class="code-comment">&lt;!-- Card 4: Receita Financeira --&gt;</span>
+<span class="code-highlight">&lt;div class="metric-value"&gt;R$ 8.4k&lt;/div&gt;    <span class="code-comment">&lt;!-- [EDITAR] Faturamento Acumulado --&gt;</span></span>
+&lt;div class="metric-label"&gt;Receita&lt;/div&gt;</code></pre>
+    </div>
+
+  </div>
+
+
+  <!-- ======================================================== -->
+  <!-- PÁGINA 5: GUIA DE LINHAS EDITÁVEIS - PARTE 2 (GRÁFICO E TABELAS) -->
+  <!-- ======================================================== -->
+  <div class="page-break"></div>
+  <div class="doc-page">
+    
+    <div class="page-header">
+      <div class="page-header-title">4. Guia de Linhas Editáveis: Gráfico, Vendas e Estoque</div>
+      <div class="page-header-num">Página 5</div>
+    </div>
+
+    <h2>Personalização do Gráfico e das Tabelas</h2>
+
+    <!-- BLOCO 4: GRÁFICO SVG -->
+    <div class="edit-card avoid-break">
+      <div class="edit-card-header">
+        <span class="edit-card-title">4. Gráfico de Vendas SVG e Dados de Cada Mês</span>
+        <span class="badge badge-edit">Editável</span>
+      </div>
+      <p style="font-size: 12px; margin-bottom: 6px;">
+        Os dados e valores exibidos nas caixas flutuantes (tooltips) do gráfico estão no arquivo <strong>script.js</strong> (linhas <strong>160 a 175</strong>):
+      </p>
+      <pre><code>const salesData = [
+<span class="code-highlight">  { month: 'Janeiro',   revenue: 'R$ 3.420', x: 20,  y: 150 }, <span class="code-comment">&lt;-- Altere o mês e o valor em R$</span></span>
+<span class="code-highlight">  { month: 'Fevereiro', revenue: 'R$ 4.100', x: 70,  y: 128 },</span>
+<span class="code-highlight">  { month: 'Março',     revenue: 'R$ 3.850', x: 120, y: 142 },</span>
+  ...
+<span class="code-highlight">  { month: 'Dezembro',  revenue: 'R$ 8.400', x: 570, y: 55 }</span>
+];</code></pre>
+      <p style="font-size: 11.5px; color: #64748b;">
+        * Nota: No sistema de coordenadas do SVG, o valor <code>y: 180</code> representa a base (inferior) e valores menores (como <code>y: 55</code>) representam o topo do gráfico (maior faturamento).
+      </p>
+    </div>
+
+    <!-- BLOCO 5: ÚLTIMAS VENDAS -->
+    <div class="edit-card avoid-break">
+      <div class="edit-card-header">
+        <span class="edit-card-title">5. Tabela de Últimas Vendas (Clientes, Preços e Status)</span>
+        <span class="badge badge-edit">Editável</span>
+      </div>
+      <p style="font-size: 12px; margin-bottom: 6px;">
+        Localize as linhas <strong>285 a 335</strong> de <code>index.html</code>. Cada venda é um bloco <code>&lt;div class="sale-item"&gt;</code>:
+      </p>
+      <pre><code>&lt;div class="sale-item"&gt;
+  &lt;div class="sale-info"&gt;
+<span class="code-highlight">    &lt;span class="sale-customer"&gt;Ana Souza&lt;/span&gt;   <span class="code-comment">&lt;!-- [EDITAR] Nome do Cliente --&gt;</span></span>
+<span class="code-highlight">    &lt;span class="sale-date"&gt;15/05/2024&lt;/span&gt;       <span class="code-comment">&lt;!-- [EDITAR] Data da Compra --&gt;</span></span>
+  &lt;/div&gt;
+  &lt;div class="sale-meta"&gt;
+<span class="code-highlight">    &lt;span class="sale-amount"&gt;R$ 3299.90&lt;/span&gt;    <span class="code-comment">&lt;!-- [EDITAR] Valor Total --&gt;</span></span>
+<span class="code-highlight">    &lt;span class="status-badge badge-completed"&gt;Concluída&lt;/span&gt; <span class="code-comment">&lt;!-- Use badge-pending para Pendente --&gt;</span></span>
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+
+    <!-- BLOCO 6: PRODUTOS COM ESTOQUE BAIXO -->
+    <div class="edit-card avoid-break">
+      <div class="edit-card-header">
+        <span class="edit-card-title">6. Tabela de Estoque Baixo (Produtos, Categorias e Alertas)</span>
+        <span class="badge badge-edit">Editável</span>
+      </div>
+      <p style="font-size: 12px; margin-bottom: 6px;">
+        Localize as linhas <strong>350 a 395</strong> de <code>index.html</code>. Cada linha <code>&lt;tr&gt;</code> representa um produto monitorado:
+      </p>
+      <pre><code>&lt;tr&gt;
+<span class="code-highlight">  &lt;td class="font-medium"&gt;Notebook Dell Inspiron&lt;/td&gt;  <span class="code-comment">&lt;!-- [EDITAR] Nome do Produto --&gt;</span></span>
+<span class="code-highlight">  &lt;td class="text-secondary"&gt;Notebooks&lt;/td&gt;            <span class="code-comment">&lt;!-- [EDITAR] Categoria --&gt;</span></span>
+<span class="code-highlight">  &lt;td&gt;&lt;span class="stock-pill stock-warning"&gt;12&lt;/span&gt;&lt;/td&gt;  <span class="code-comment">&lt;!-- [EDITAR] Quantidade e Estilo --&gt;</span></span>
+<span class="code-highlight">  &lt;td&gt;&lt;span class="status-badge badge-active"&gt;Ativo&lt;/span&gt;&lt;/td&gt; <span class="code-comment">&lt;!-- Use badge-inactive para Inativo --&gt;</span></span>
+&lt;/tr&gt;</code></pre>
+
+      <p style="font-size: 12px; margin-top: 6px;"><strong>Opções de Estilo para Pílulas de Estoque:</strong></p>
+      <ul>
+        <li><code>class="stock-pill stock-critical"</code> &rarr; Fundo vermelho claro (Estoque Zerado / Crítico).</li>
+        <li><code>class="stock-pill stock-danger"</code> &rarr; Fundo rosa/vermelho (Estoque muito baixo, ex: 8 un).</li>
+        <li><code>class="stock-pill stock-warning"</code> &rarr; Fundo amarelo/âmbar (Estoque de alerta, ex: 12 a 25 un).</li>
+        <li><code>class="stock-pill stock-safe"</code> &rarr; Fundo verde (Estoque seguro/normal).</li>
+      </ul>
+    </div>
+
+  </div>
+
+
+  <!-- ======================================================== -->
+  <!-- PÁGINA 6: CUSTOMIZAÇÃO DE CORES NO CSS E ROTEIRO DE CONTINUIDADE -->
+  <!-- ======================================================== -->
+  <div class="page-break"></div>
+  <div class="doc-page">
+    
+    <div class="page-header">
+      <div class="page-header-title">5. Customização de Cores no CSS & Roteiro Nova Conversa</div>
+      <div class="page-header-num">Página 6</div>
+    </div>
+
+    <h2>Personalização Visual no <code>style.css</code></h2>
+    <p>
+      Todas as cores globais estão concentradas no início do arquivo <strong>style.css</strong> (linhas <strong>6 a 35</strong>). Basta substituir o código hexadecimal (ex: <code>#5850ec</code>) pela cor de sua preferência:
+    </p>
+
+    <pre><code>:root {
+<span class="code-highlight">  --bg-app: #f5f6fb;              <span class="code-comment">/* Cor de fundo de toda a página */</span></span>
+<span class="code-highlight">  --bg-card: #ffffff;             <span class="code-comment">/* Cor de fundo dos cards brancos */</span></span>
+<span class="code-highlight">  --bg-sidebar: #09090b;          <span class="code-comment">/* Cor do menu lateral escuro */</span></span>
+<span class="code-highlight">  --primary: #5850ec;             <span class="code-comment">/* Cor principal (Indigo / Destaques) */</span></span>
+<span class="code-highlight">  --teal-icon: #10b981;           <span class="code-comment">/* Cor do ícone de Produtos */</span></span>
+<span class="code-highlight">  --amber-icon: #f59e0b;          <span class="code-comment">/* Cor do ícone de Faturamento */</span></span>
+<span class="code-highlight">  --badge-green-bg: #e8fbf0;      <span class="code-comment">/* Fundo da badge Concluída */</span></span>
+<span class="code-highlight">  --badge-yellow-bg: #fff9e6;     <span class="code-comment">/* Fundo da badge Pendente */</span></span>
+}</code></pre>
+
+    <h2>Prompt Pronto para Copiar e Colar na Nova Conversa</h2>
+    <p>
+      Como você vai iniciar um novo chat, copie o bloco abaixo na sua primeira mensagem para que o novo assistente já saiba tudo o que existe e possa continuar imediatamente:
+    </p>
+
+    <div class="callout callout-editable" style="font-size: 12px;">
+      <p style="font-weight: 700; color: #1e40af; margin-bottom: 8px;">📋 COPIE E COLE ESTE TEXTO NA ABERTURA DA SUA NOVA CONVERSA:</p>
+      <pre style="background: #ffffff; color: #0f172a; border: 1px solid #bfdbfe; font-size: 11px;">"Olá! Estou dando continuidade ao desenvolvimento do projeto InfoStore - Sistema de Gestão.
+A aplicação já está construída em HTML5, CSS3 e JavaScript puro na pasta:
+C:\Users\elvis.acordeiro\Desktop\Telas em html 5
+
+A estrutura atual conta com:
+1. index.html: Telas de Login, Dashboard com 4 métricas, Gráfico SVG, tabelas de Vendas e Estoque, mais abas para Clientes, Produtos, Fornecedores e Vendas.
+2. style.css: Folha de estilos responsiva com tokens :root, flexbox, grid e drawer lateral.
+3. script.js: Lógica de autenticação com wendel, alternância de senha (olho), menu drawer responsivo, tooltips no gráfico SVG e filtros de busca em tempo real.
+4. Documentacao_InfoStore.pdf: Documentação completa já gerada.
+
+Gostaria que você me ajudasse a realizar a seguinte melhoria:
+[DIGITE AQUI O QUE VOCÊ QUER FAZER AGORA, por exemplo:
+- Conectar com um banco de dados local SQLite ou API em Node.js
+- Adicionar funcionalidade para cadastrar, editar e excluir clientes na tabela
+- Permitir exportar as vendas para PDF ou Excel
+- Alterar o design ou adicionar uma nova tela específica]"</pre>
+    </div>
+
+    <h2>Sugestões de Evolução Recomendadas</h2>
+    <ol>
+      <li><strong>Persistência no LocalStorage:</strong> Fazer com que os novos cadastros feitos pelo modal sejam salvos no navegador para não sumirem ao atualizar com <kbd>F5</kbd>.</li>
+      <li><strong>Integração com Backend:</strong> Criar uma API REST simples (em Node.js Express, Python Flask ou PHP) para autenticação real com criptografia de senha (bcrypt).</li>
+      <li><strong>Exportação de Dados:</strong> Inserir botão de download para exportar a tabela de vendas em formato CSV/Excel.</li>
+    </ol>
+
+    <div class="callout callout-success" style="margin-top: 18px;">
+      <strong>Conclusão:</strong> O projeto está estruturado de acordo com as melhores práticas de desenvolvimento web moderno, com código limpo, comentado e totalmente preparado para expansões futuras.
+    </div>
+  </div>
+
+</body>
+</html>
